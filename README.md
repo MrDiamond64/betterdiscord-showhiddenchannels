@@ -4,5 +4,5 @@ Recently, as of September 5, 2022, the betterdiscord plugin known as ShowHiddenC
 # Notice when using an old version of ShowHiddenChannels
 If you try to use an old version, a forced update will automatically update it. To get around this, open ShowHiddenChannels.plugin.js and set the version number to 9.9.9
 
-If you would like the last working version, you can find it [here](https://github.com/mwittrien/BetterDiscordAddons/blob/b510da9b3ad72ba3b773f7d79e391a459f31732d/Plugins/ShowHiddenChannels/ShowHiddenChannels.plugin.js)
+If you would like the last working version, you can find it [here](https://github.com/mwittrien/BetterDiscordAddons/blob/b510da9b3ad72ba3b773f7d79e391a459f31732d/Plugins/ShowHiddenChannels/ShowHiddenChannels.plugin.js)<br />
 [Old BDFDB Library Assets](https://github.com/mwittrien/BetterDiscordAddons/tree/b510da9b3ad72ba3b773f7d79e391a459f31732d)
