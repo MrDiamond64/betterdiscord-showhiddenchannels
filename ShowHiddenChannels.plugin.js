@@ -2,13 +2,14 @@
  * @name ShowHiddenChannels
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 9.9.9
+ * @version 3.2.5
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible)
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
  * @patreon https://www.patreon.com/MircoWittrien
  * @website https://mwittrien.github.io/
  * @source https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/ShowHiddenChannels/
+ * @updateUrl https://mwittrien.github.io/BetterDiscordAddons/Plugins/ShowHiddenChannels/ShowHiddenChannels.plugin.js
  */
 
 module.exports = (_ => {
@@ -44,6 +45,7 @@ module.exports = (_ => {
 					}
 				});
 			}
+			if (!window.BDFDB_Global.pluginQueue.includes(this.name)) window.BDFDB_Global.pluginQueue.push(this.name);
 		}
 		start () {this.load();}
 		stop () {}
@@ -202,7 +204,7 @@ module.exports = (_ => {
 				};
 
 				this.css = `
-					${["ShowHiddenChannels", "accessModal"] + BDFDB.dotCN.messagespopoutemptyplaceholder} {
+					${BDFDB.dotCNS._showhiddenchannelsaccessmodal + BDFDB.dotCN.messagespopoutemptyplaceholder} {
 						position: absolute;
 						bottom: 0;
 						width: 100%;
@@ -309,7 +311,7 @@ module.exports = (_ => {
 				}
 			}
 
-			forceUpdateAll () {				
+			forceUpdateAll () {
 				hiddenChannelCache = {};
 
 				BDFDB.PatchUtils.forceAllUpdates(this);
@@ -364,7 +366,7 @@ module.exports = (_ => {
 				if (e.instance.props.channel && this.isChannelHidden(e.instance.props.channel.id)) return null;
 			}
 
-			processChannelList (e) {
+			processChannels (e) {
 				if (!e.instance.props.guild || e.instance.props.guild.id.length < 16) return;
 				let show = !blackList.includes(e.instance.props.guild.id), sortAtBottom = this.settings.sortOrder.hidden == sortOrders.BOTTOM.value;
 				e.instance.props.guildChannels = new e.instance.props.guildChannels.constructor(e.instance.props.guildChannels.id, e.instance.props.guildChannels.hoistedSection.hoistedRows);
@@ -413,7 +415,7 @@ module.exports = (_ => {
 
 			processChannelItem (e) {
 				if (e.instance.props.channel && this.isChannelHidden(e.instance.props.channel.id)) {
-					if (!e.returnvalue) e.instance.props.className = BDFDB.DOMUtils.formatClassName(e.instance.props.className, ["ShowHiddenChannels", "hiddenChannel"]);
+					if (!e.returnvalue) e.instance.props.className = BDFDB.DOMUtils.formatClassName(e.instance.props.className, BDFDB.disCN._showhiddenchannelshiddenchannel);
 					else {
 						let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {name: "ChannelItemIcon"});
 						let channelChildren = BDFDB.ReactUtils.findChild(e.returnvalue, {props: [["className", BDFDB.disCN.channelchildren]]});
@@ -566,7 +568,7 @@ module.exports = (_ => {
 					size: "MEDIUM",
 					header: BDFDB.LanguageUtils.LanguageStrings.CHANNEL + " " + BDFDB.LanguageUtils.LanguageStrings.ACCESSIBILITY,
 					subHeader: "#" + channel.name,
-					className: ["ShowHiddenChannels", "accessModal"],
+					className: BDFDB.disCN._showhiddenchannelsaccessmodal,
 					contentClassName: BDFDB.DOMUtils.formatClassName(!isThread && BDFDB.disCN.listscroller),
 					onOpen: modalInstance => {if (modalInstance) accessModal = modalInstance;},
 					children: isThread ? infoStrings : [
